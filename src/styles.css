@@ -1,0 +1,503 @@
+:root {
+  --fundo: #f4f5f8;
+  --cartao: #ffffff;
+  --texto: #1b1e28;
+  --suave: #626a7d;
+  --borda: #e2e5ec;
+  --primaria: #3b5bdb;
+  --primaria-hover: #2f4ac0;
+  --primaria-texto: #ffffff;
+  --campo: #ffffff;
+  --linha-hover: #f7f8fb;
+  --ok-fundo: #e8f6ee;
+  --ok-texto: #1d6b3f;
+  --erro-fundo: #fdecec;
+  --erro-texto: #a12a2a;
+  --aviso-fundo: #fff6e0;
+  --aviso-texto: #7a5300;
+  --baixa: #c92a2a;
+  --media: #d08700;
+  --alta: #2b8a3e;
+  --raio: 12px;
+  --sombra: 0 1px 2px rgba(20, 24, 40, 0.06), 0 4px 16px rgba(20, 24, 40, 0.05);
+  color-scheme: light dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --fundo: #12141a;
+    --cartao: #1b1e27;
+    --texto: #e8eaf0;
+    --suave: #9aa1b2;
+    --borda: #2c303c;
+    --primaria: #6b86ff;
+    --primaria-hover: #849bff;
+    --primaria-texto: #0d1020;
+    --campo: #151820;
+    --linha-hover: #222632;
+    --ok-fundo: #15301f;
+    --ok-texto: #8be0a8;
+    --erro-fundo: #3a1a1c;
+    --erro-texto: #ff9c9c;
+    --aviso-fundo: #33290f;
+    --aviso-texto: #f3cd6b;
+    --sombra: none;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--fundo);
+  color: var(--texto);
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+h1,
+h2 {
+  margin: 0;
+  line-height: 1.2;
+}
+
+h1 {
+  font-size: 1.35rem;
+}
+
+h2 {
+  font-size: 1.05rem;
+  margin-bottom: 16px;
+}
+
+code {
+  font-size: 0.9em;
+  background: var(--linha-hover);
+  padding: 1px 5px;
+  border-radius: 4px;
+}
+
+.suave {
+  color: var(--suave);
+  margin: 2px 0 0;
+  font-size: 0.9rem;
+}
+
+/* ---------- Tela de login ---------- */
+.centro {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+}
+
+.entrar {
+  width: 100%;
+  max-width: 380px;
+  text-align: center;
+  padding: 36px 28px;
+}
+
+.entrar h1 {
+  margin-top: 12px;
+}
+
+.entrar .botao {
+  margin-top: 24px;
+}
+
+.marca {
+  display: inline-grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: var(--primaria);
+  color: var(--primaria-texto);
+  font-size: 24px;
+}
+
+.marca.pequena {
+  width: 38px;
+  height: 38px;
+  font-size: 18px;
+  border-radius: 10px;
+  flex-shrink: 0;
+}
+
+/* ---------- Topo ---------- */
+.topo {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 24px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  background: var(--cartao);
+  border-bottom: 1px solid var(--borda);
+}
+
+.topo-titulo,
+.topo-usuario {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.usuario-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+}
+
+.usuario-email {
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.roles {
+  display: flex;
+  gap: 4px;
+}
+
+.chip {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 1px 8px;
+  border-radius: 999px;
+  border: 1px solid var(--borda);
+  color: var(--suave);
+}
+
+.chip-admin {
+  border-color: var(--primaria);
+  color: var(--primaria);
+}
+
+.chip-vazio {
+  border-style: dashed;
+}
+
+/* ---------- Layout ---------- */
+.conteudo {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.grade {
+  display: grid;
+  grid-template-columns: minmax(260px, 340px) minmax(0, 1fr);
+  gap: 24px;
+  align-items: start;
+}
+
+.grade-unica {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.cartao {
+  background: var(--cartao);
+  border: 1px solid var(--borda);
+  border-radius: var(--raio);
+  box-shadow: var(--sombra);
+  padding: 20px;
+  min-width: 0;
+}
+
+/* ---------- Formulário ---------- */
+.formulario {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.campo-check {
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+label {
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.obrigatorio {
+  color: var(--baixa);
+}
+
+.dica {
+  color: var(--suave);
+  font-weight: 400;
+}
+
+input,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+  background: var(--campo);
+  border: 1px solid var(--borda);
+  border-radius: 8px;
+  padding: 9px 11px;
+  width: 100%;
+}
+
+input[type='checkbox'] {
+  width: auto;
+}
+
+textarea {
+  resize: vertical;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: 2px solid var(--primaria);
+  outline-offset: -1px;
+  border-color: transparent;
+}
+
+/* ---------- Botões ---------- */
+.botao {
+  font: inherit;
+  font-weight: 500;
+  font-size: 0.9rem;
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: 1px solid var(--borda);
+  background: var(--cartao);
+  color: var(--texto);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.botao:hover:not(:disabled) {
+  background: var(--linha-hover);
+}
+
+.botao.primario {
+  background: var(--primaria);
+  border-color: var(--primaria);
+  color: var(--primaria-texto);
+}
+
+.botao.primario:hover:not(:disabled) {
+  background: var(--primaria-hover);
+}
+
+.botao:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.largo {
+  width: 100%;
+  padding: 10px 16px;
+}
+
+/* ---------- Alertas ---------- */
+.alerta {
+  margin: 0 0 16px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-size: 0.88rem;
+}
+
+.formulario .alerta {
+  margin: 0;
+}
+
+.alerta.ok {
+  background: var(--ok-fundo);
+  color: var(--ok-texto);
+}
+
+.alerta.erro {
+  background: var(--erro-fundo);
+  color: var(--erro-texto);
+}
+
+.alerta.aviso {
+  background: var(--aviso-fundo);
+  color: var(--aviso-texto);
+}
+
+/* ---------- Lista ---------- */
+.lista-topo {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.lista-topo h2 {
+  margin: 0;
+}
+
+.contador {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--suave);
+  background: var(--linha-hover);
+  border: 1px solid var(--borda);
+  border-radius: 999px;
+  padding: 1px 8px;
+  vertical-align: middle;
+}
+
+.lista-acoes {
+  display: flex;
+  gap: 8px;
+}
+
+.lista-acoes input {
+  width: 200px;
+  padding: 7px 10px;
+}
+
+.vazio {
+  color: var(--suave);
+  text-align: center;
+  padding: 32px 0;
+  margin: 0;
+}
+
+.tabela-wrap {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+th {
+  text-align: left;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--suave);
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--borda);
+  white-space: nowrap;
+}
+
+td {
+  padding: 10px;
+  border-bottom: 1px solid var(--borda);
+  vertical-align: top;
+}
+
+tbody tr:hover {
+  background: var(--linha-hover);
+}
+
+td.col-textarea {
+  min-width: 180px;
+  max-width: 420px;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+td.col-datetime,
+td.col-date,
+td.col-number {
+  white-space: nowrap;
+}
+
+.badge {
+  display: inline-block;
+  min-width: 32px;
+  text-align: center;
+  font-weight: 700;
+  font-size: 0.85rem;
+  padding: 2px 8px;
+  border-radius: 6px;
+  color: #fff;
+}
+
+.badge.baixa {
+  background: var(--baixa);
+}
+
+.badge.media {
+  background: var(--media);
+}
+
+.badge.alta {
+  background: var(--alta);
+}
+
+/* ---------- Celular ---------- */
+@media (max-width: 860px) {
+  .grade {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .topo,
+  .conteudo {
+    padding: 16px;
+  }
+
+  .usuario-info {
+    align-items: flex-start;
+  }
+
+  .lista-acoes,
+  .lista-acoes input {
+    width: 100%;
+  }
+
+  /* Tabela vira cartões no celular */
+  thead {
+    display: none;
+  }
+
+  tr {
+    display: block;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--borda);
+  }
+
+  td {
+    display: flex;
+    gap: 12px;
+    justify-content: space-between;
+    border: none;
+    padding: 4px 0;
+  }
+
+  td::before {
+    content: attr(data-label);
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--suave);
+    flex-shrink: 0;
+  }
+
+  td.col-textarea {
+    max-width: none;
+    min-width: 0;
+    text-align: right;
+  }
+}

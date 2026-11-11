@@ -1,0 +1,17 @@
+node_modules/
+dist/
+.env
+.env.local
+.vercel/
+
+# Chaves (NUNCA subir)
+*.pem
+
+# Arquivos do agente / notas internas
+.claude/
+docs/
+specs/
+plans/
+notes/
+
+.DS_Store
