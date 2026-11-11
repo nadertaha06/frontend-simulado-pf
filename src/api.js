@@ -40,8 +40,10 @@ export const listar = (token) => request(token, ROTA)
 export const cadastrar = (token, dados) =>
   request(token, ROTA, { method: 'POST', body: JSON.stringify(dados) })
 
+// DELETE /avaliacoes/{id}  (usado pelo botão Excluir quando MOSTRAR_EXCLUIR = true no config.js)
+export const deletar = (token, id) => request(token, `${ROTA}/${id}`, { method: 'DELETE' })
+
 // Exemplos se a prova pedir:
-// export const buscar   = (token, id)        => request(token, `${ROTA}/${id}`)
-// export const deletar  = (token, id)        => request(token, `${ROTA}/${id}`, { method: 'DELETE' })
+// export const buscar    = (token, id)        => request(token, `${ROTA}/${id}`)
 // export const atualizar = (token, id, dados) =>
 //   request(token, `${ROTA}/${id}`, { method: 'PUT', body: JSON.stringify(dados) })

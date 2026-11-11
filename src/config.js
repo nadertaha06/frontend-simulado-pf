@@ -25,6 +25,11 @@ export const ROLES_CLAIM = `${NAMESPACE}/roles`
 // ⭐ Quem pode ver o formulário de cadastro
 export const ROLES_PODE_CADASTRAR = ['ADMIN']
 
+// ⭐ Botão "Excluir" em cada linha da tabela.
+// Só ligue (true) depois de descomentar a rota DELETE no backend (app/routes.py).
+export const MOSTRAR_EXCLUIR = false
+export const ROLES_PODE_EXCLUIR = ['ADMIN']
+
 // ---------------------------------------------------------------------
 // ⭐ CAMPOS DA ENTIDADE
 // ---------------------------------------------------------------------

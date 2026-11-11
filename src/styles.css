@@ -299,6 +299,21 @@ select:focus {
   background: var(--primaria-hover);
 }
 
+.botao.perigo {
+  color: var(--erro-texto);
+  padding: 4px 10px;
+  font-size: 0.8rem;
+}
+
+.botao.perigo:hover:not(:disabled) {
+  background: var(--erro-fundo);
+}
+
+td.col-acoes {
+  text-align: right;
+  white-space: nowrap;
+}
+
 .botao:disabled {
   opacity: 0.6;
   cursor: default;

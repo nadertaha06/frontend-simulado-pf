@@ -1,7 +1,14 @@
 import { useCallback, useEffect, useState } from 'react'
 import { useAuth0 } from '@auth0/auth0-react'
-import { ROLES_CLAIM, ROLES_PODE_CADASTRAR, SUBTITULO, TITULO } from './config'
-import { cadastrar, listar } from './api'
+import {
+  MOSTRAR_EXCLUIR,
+  ROLES_CLAIM,
+  ROLES_PODE_CADASTRAR,
+  ROLES_PODE_EXCLUIR,
+  SUBTITULO,
+  TITULO,
+} from './config'
+import { cadastrar, deletar, listar } from './api'
 import Formulario from './components/Formulario'
 import Lista from './components/Lista'
 
@@ -61,6 +68,12 @@ export default function App() {
     await carregar()
   }
 
+  async function remover(id) {
+    const token = await pegarToken()
+    await deletar(token, id)
+    await carregar()
+  }
+
   if (isLoading) {
     return (
       <main className="centro">
@@ -86,6 +99,7 @@ export default function App() {
   }
 
   const podeCadastrar = roles.some((r) => ROLES_PODE_CADASTRAR.includes(r))
+  const podeExcluir = MOSTRAR_EXCLUIR && roles.some((r) => ROLES_PODE_EXCLUIR.includes(r))
 
   return (
     <>
@@ -131,7 +145,13 @@ export default function App() {
 
         <div className={`grade ${podeCadastrar ? '' : 'grade-unica'}`}>
           {podeCadastrar && <Formulario onSalvar={salvar} />}
-          <Lista itens={itens} carregando={carregando} erro={erroLista} onAtualizar={carregar} />
+          <Lista
+            itens={itens}
+            carregando={carregando}
+            erro={erroLista}
+            onAtualizar={carregar}
+            onExcluir={podeExcluir ? remover : undefined}
+          />
         </div>
       </main>
     </>

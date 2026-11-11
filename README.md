@@ -3,6 +3,11 @@
 Tela única: login com Auth0, formulário de cadastro (só para quem tem `ADMIN`) e lista com filtro.
 O formulário e a tabela são **gerados a partir da lista `CAMPOS`** em [src/config.js](src/config.js).
 
+> 📘 **Guia completo da prova (back + front, com código pronto para cada mudança):**
+> [README do backend](https://github.com/nadertaha06/backend-simulado-pf#readme)
+
+Site: https://frontend-simulado-pf.vercel.app
+
 ---
 
 ## ⭐ Onde mudar cada coisa na prova
@@ -18,8 +23,29 @@ Quase tudo está em **[src/config.js](src/config.js)**:
 | Campo aparece só na tabela / só no form | `naTabela` / `noForm` |
 | Campo de escolha | `tipo: 'select', opcoes: ['A', 'B']` |
 | Nota com decimal | `step: 0.5` no campo |
-| Nova chamada (GET por id, DELETE, PUT) | exemplos no fim de [src/api.js](src/api.js) |
+| Botão **Excluir** na tabela | `MOSTRAR_EXCLUIR = true` (e descomentar o DELETE no `app/routes.py` do back) |
+| Quem vê o botão Excluir | `ROLES_PODE_EXCLUIR` |
+| GET em outro caminho (ex.: `/minhas`) | `listar` em [src/api.js](src/api.js): ``request(token, `${ROTA}/minhas`)`` |
+| Nova chamada (GET por id, PUT) | exemplos no fim de [src/api.js](src/api.js) |
 | IP ou porta do backend mudou | [vercel.json](vercel.json) |
+
+**Tipos de campo em `CAMPOS`:**
+
+| Tipo | Vira |
+|---|---|
+| `text` | caixa de texto |
+| `email` | caixa de email |
+| `number` | número |
+| `textarea` | texto grande |
+| `date` | calendário |
+| `datetime` | data e hora |
+| `select` | lista de opções (precisa de `opcoes`) |
+| `checkbox` | sim ou não |
+
+**Regras dos campos:**
+- `noForm: true`: o campo aparece no formulário (o usuário preenche);
+- `naTabela: true`: o campo aparece na lista;
+- campos que o servidor preenche (id, data, usuário logado): `noForm: false`.
 
 Exemplo, para adicionar um campo `cargo` de escolha:
 
@@ -76,7 +102,7 @@ No `.env`, `VITE_PROXY_TARGET` define para onde vai o `/api`:
 ```
 src/
   config.js              ⭐ rota, roles, campos
-  api.js                 chamadas à API (listar, cadastrar + exemplos)
+  api.js                 chamadas à API (listar, cadastrar, deletar + exemplos)
   App.jsx                login/logout, roles do token, layout
   components/
     Formulario.jsx       formulário gerado de CAMPOS (noForm: true)

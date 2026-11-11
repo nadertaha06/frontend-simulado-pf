@@ -31,8 +31,23 @@ function classeBadge(valor) {
   return 'badge alta'
 }
 
-export default function Lista({ itens, carregando, erro, onAtualizar }) {
+// onExcluir só é passado quando MOSTRAR_EXCLUIR = true no config.js (e o usuário tem a role)
+export default function Lista({ itens, carregando, erro, onAtualizar, onExcluir }) {
   const [filtro, setFiltro] = useState('')
+  const [erroAcao, setErroAcao] = useState('')
+  const [excluindo, setExcluindo] = useState(null)
+
+  async function excluir(id) {
+    setErroAcao('')
+    setExcluindo(id)
+    try {
+      await onExcluir(id)
+    } catch (e) {
+      setErroAcao(e.message)
+    } finally {
+      setExcluindo(null)
+    }
+  }
 
   const visiveis = useMemo(() => {
     const f = filtro.trim().toLowerCase()
@@ -63,6 +78,7 @@ export default function Lista({ itens, carregando, erro, onAtualizar }) {
       </div>
 
       {erro && <p className="alerta erro">{erro}</p>}
+      {erroAcao && <p className="alerta erro">{erroAcao}</p>}
 
       {!erro && !carregando && itens.length === 0 && (
         <p className="vazio">Nenhum registro cadastrado ainda.</p>
@@ -76,6 +92,7 @@ export default function Lista({ itens, carregando, erro, onAtualizar }) {
                 {colunas.map((c) => (
                   <th key={c.nome}>{c.label}</th>
                 ))}
+                {onExcluir && <th aria-label="Ações" />}
               </tr>
             </thead>
             <tbody>
@@ -90,6 +107,17 @@ export default function Lista({ itens, carregando, erro, onAtualizar }) {
                       )}
                     </td>
                   ))}
+                  {onExcluir && (
+                    <td className="col-acoes">
+                      <button
+                        className="botao perigo"
+                        onClick={() => excluir(item.id)}
+                        disabled={excluindo === item.id}
+                      >
+                        {excluindo === item.id ? 'Excluindo…' : 'Excluir'}
+                      </button>
+                    </td>
+                  )}
                 </tr>
               ))}
             </tbody>
