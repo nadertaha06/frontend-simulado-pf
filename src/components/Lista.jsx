@@ -24,7 +24,11 @@ function formatar(campo, valor) {
   return String(valor)
 }
 
+// Prioridade: ALTA em vermelho, MEDIA em amarelo, BAIXA em verde. Número: nota de 0 a 10.
+const BADGE_PRIORIDADE = { BAIXA: 'badge alta', MEDIA: 'badge media', ALTA: 'badge baixa' }
+
 function classeBadge(valor) {
+  if (BADGE_PRIORIDADE[valor]) return BADGE_PRIORIDADE[valor]
   const n = Number(valor)
   if (n < 5) return 'badge baixa'
   if (n < 8) return 'badge media'
@@ -81,7 +85,7 @@ export default function Lista({ itens, carregando, erro, onAtualizar, onExcluir 
       {erroAcao && <p className="alerta erro">{erroAcao}</p>}
 
       {!erro && !carregando && itens.length === 0 && (
-        <p className="vazio">Nenhum registro cadastrado ainda.</p>
+        <p className="vazio">Nenhum artigo cadastrado ainda.</p>
       )}
 
       {visiveis.length > 0 && (

@@ -18,7 +18,7 @@ async function request(token, caminho, opcoes = {}) {
     if (motivo401) detalhe = `Token inválido: ${motivo401}`
     else if (resp.status === 401) detalhe = 'Token não enviado ou inválido'
     try {
-      // Spring devolve {"status": 400, "message": "nota deve ser de 0 a 10", ...}
+      // Spring devolve {"status": 400, "message": "titulo é obrigatório", ...}
       const corpo = await resp.json()
       detalhe = corpo.message || corpo.detail || detalhe
     } catch {
@@ -30,14 +30,14 @@ async function request(token, caminho, opcoes = {}) {
   return resp.status === 204 ? null : resp.json()
 }
 
-// GET /avaliacoes
+// GET /artigos
 export const listar = (token) => request(token, ROTA)
 
-// POST /avaliacoes
+// POST /artigos
 export const cadastrar = (token, dados) =>
   request(token, ROTA, { method: 'POST', body: JSON.stringify(dados) })
 
-// DELETE /avaliacoes/{id}  (usado pelo botão Excluir quando MOSTRAR_EXCLUIR = true no config.js)
+// DELETE /artigos/{id}  (usado pelo botão Excluir quando MOSTRAR_EXCLUIR = true no config.js)
 export const deletar = (token, id) => request(token, `${ROTA}/${id}`, { method: 'DELETE' })
 
 // Exemplos se a prova pedir:

@@ -1,4 +1,4 @@
-# Frontend: Avaliações (React + Vite + Auth0)
+# Frontend: Base de conhecimentos (React + Vite + Auth0)
 
 Tela única: login com Auth0, formulário de cadastro (só para quem tem `ADMIN`) e lista com filtro.
 O formulário e a tabela são **gerados a partir da lista `CAMPOS`** em [src/config.js](src/config.js).
@@ -16,14 +16,14 @@ Quase tudo está em **[src/config.js](src/config.js)**:
 
 | A prova pede… | O que mudar |
 |---|---|
-| Mudar a rota (`/avaliacoes` → `/feedbacks`) | `ROTA` |
+| Mudar a rota (`/artigos` → `/feedbacks`) | `ROTA` |
 | Mudar textos da tela | `TITULO`, `SUBTITULO`, `NOME_ITEM` |
 | Quem vê o formulário | `ROLES_PODE_CADASTRAR` |
 | Adicionar / remover / renomear campo | lista `CAMPOS` (o `nome` tem que ser igual ao JSON do backend) |
 | Campo aparece só na tabela / só no form | `naTabela` / `noForm` |
 | Campo de escolha | `tipo: 'select', opcoes: ['A', 'B']` |
 | Nota com decimal | `step: 0.5` no campo |
-| Botão **Excluir** na tabela | `MOSTRAR_EXCLUIR = true` (e descomentar o DELETE no `AvaliacaoController.java` do back) |
+| Botão **Excluir** na tabela | `MOSTRAR_EXCLUIR = true` (e descomentar o DELETE no `ArtigoController.java` do back) |
 | Quem vê o botão Excluir | `ROLES_PODE_EXCLUIR` |
 | GET em outro caminho (ex.: `/minhas`) | `listar` em [src/api.js](src/api.js): ``request(token, `${ROTA}/minhas`)`` |
 | Nova chamada (GET por id, PUT) | exemplos no fim de [src/api.js](src/api.js) |
@@ -53,7 +53,7 @@ Exemplo, para adicionar um campo `cargo` de escolha:
 { nome: 'cargo', label: 'Cargo', tipo: 'select', opcoes: ['DEV', 'PO', 'QA'], noForm: true, naTabela: true, obrigatorio: true },
 ```
 
-(e no backend, `private String cargo;` na classe `Avaliacao.java`)
+(e no backend, `private String cargo;` na classe `Artigo.java`)
 
 ---
 
@@ -77,8 +77,8 @@ Exemplo, para adicionar um campo `cargo` de escolha:
 ### Por que `/api` e o `vercel.json`?
 
 A Vercel serve o front em **https**, e o backend na EC2 é **http**. O navegador bloqueia chamadas
-https → http ("mixed content"). Por isso o front chama `/api/avaliacoes` no próprio domínio e a
-Vercel repassa, pelo servidor dela, para `http://13.220.42.157:8080/avaliacoes` ([vercel.json](vercel.json)).
+https → http ("mixed content"). Por isso o front chama `/api/artigos` no próprio domínio e a
+Vercel repassa, pelo servidor dela, para `http://13.220.42.157:8080/artigos` ([vercel.json](vercel.json)).
 De quebra, isso evita problema de CORS.
 
 Em dev, quem faz o mesmo papel é o proxy do [vite.config.js](vite.config.js).

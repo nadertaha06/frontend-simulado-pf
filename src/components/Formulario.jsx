@@ -1,6 +1,6 @@
 // Formulário gerado a partir de CAMPOS (config.js): só entram os campos com noForm: true.
 import { useState } from 'react'
-import { CAMPOS, NOME_ITEM } from '../config'
+import { CAMPOS, NOME_ITEM, TITULO_FORM } from '../config'
 
 const camposForm = CAMPOS.filter((c) => c.noForm)
 
@@ -69,7 +69,7 @@ export default function Formulario({ onSalvar }) {
       const dados = Object.fromEntries(camposForm.map((c) => [c.nome, converter(c, valores[c.nome])]))
       await onSalvar(dados)
       setValores(valoresVazios())
-      setMensagem({ tipo: 'ok', texto: 'Cadastro realizado com sucesso.' })
+      setMensagem({ tipo: 'ok', texto: 'Artigo criado com sucesso.' })
     } catch (err) {
       setMensagem({ tipo: 'erro', texto: err.message })
     } finally {
@@ -79,7 +79,7 @@ export default function Formulario({ onSalvar }) {
 
   return (
     <section className="cartao">
-      <h2>Nova {NOME_ITEM}</h2>
+      <h2>{TITULO_FORM}</h2>
       <form onSubmit={enviar} className="formulario">
         {camposForm.map((campo) => (
           <div key={campo.nome} className={`campo ${campo.tipo === 'checkbox' ? 'campo-check' : ''}`}>

@@ -1,18 +1,19 @@
 // =====================================================================
 // ⭐ CONFIGURAÇÃO DO FRONT: o que muda na prova fica AQUI
 // =====================================================================
-// - ROTA ................. caminho da API (igual ao @RequestMapping do AvaliacaoController)
+// - ROTA ................. caminho da API (igual ao @RequestMapping do ArtigoController)
 // - ROLES_PODE_CADASTRAR . quem vê o formulário (o backend é quem bloqueia de verdade)
 // - CAMPOS ............... campos da entidade: formulário e tabela são gerados daqui
 // =====================================================================
 
 // Textos da tela
-export const TITULO = 'Avaliações'
-export const SUBTITULO = 'Avaliações entre colaboradores da empresa'
-export const NOME_ITEM = 'avaliação' // usado em "Nova avaliação", "Cadastrar avaliação"...
+export const TITULO = 'Base de conhecimentos'
+export const SUBTITULO = 'Artigos da base de conhecimentos da empresa'
+export const NOME_ITEM = 'artigo' // usado em "Cadastrar artigo"
+export const TITULO_FORM = 'Novo artigo' // título do formulário
 
-// ⭐ Rota da API. Fica: {API_URL}{ROTA}  ->  /api/avaliacoes
-export const ROTA = '/avaliacoes'
+// ⭐ Rota da API. Fica: {API_URL}{ROTA}  ->  /api/artigos
+export const ROTA = '/artigos'
 
 // "/api" usa o proxy (vite.config.js em dev e vercel.json na Vercel).
 // Só troque se quiser chamar o backend direto (ex.: http://localhost:8000).
@@ -26,8 +27,8 @@ export const ROLES_CLAIM = `${NAMESPACE}/roles`
 export const ROLES_PODE_CADASTRAR = ['ADMIN']
 
 // ⭐ Botão "Excluir" em cada linha da tabela.
-// Só ligue (true) depois de descomentar a rota DELETE no backend (AvaliacaoController.java).
-export const MOSTRAR_EXCLUIR = false
+// Precisa da rota DELETE no backend (ArtigoController.java).
+export const MOSTRAR_EXCLUIR = true
 export const ROLES_PODE_EXCLUIR = ['ADMIN']
 
 // ---------------------------------------------------------------------
@@ -42,38 +43,38 @@ export const ROLES_PODE_EXCLUIR = ['ADMIN']
 //   min / max   limites para 'number'
 //   step        passo para 'number' (padrão 1 = inteiro; use 0.5 ou 'any' para decimal)
 //   opcoes      lista de opções para 'select', ex.: ['ATIVO', 'INATIVO']
-//   badge       true = mostra o valor como selo colorido (0-4 vermelho, 5-7 amarelo, 8-10 verde)
+//   badge       true = mostra o valor como selo colorido (BAIXA verde, MEDIA amarelo, ALTA vermelho;
+//               em número: 0-4 vermelho, 5-7 amarelo, 8-10 verde)
 //
-// Campos que o SERVIDOR preenche (id, avaliador, data) ficam com noForm: false.
+// Campos que o SERVIDOR preenche (id, e-mail de quem criou, data) ficam com noForm: false.
 export const CAMPOS = [
   { nome: 'id', label: 'ID', tipo: 'number', noForm: false, naTabela: true },
-  { nome: 'emailAvaliador', label: 'Avaliador', tipo: 'email', noForm: false, naTabela: true },
   {
-    nome: 'emailAvaliado',
-    label: 'Email do avaliado',
-    tipo: 'email',
+    nome: 'titulo',
+    label: 'Título',
+    tipo: 'text',
     noForm: true,
     naTabela: true,
     obrigatorio: true,
   },
   {
-    nome: 'nota',
-    label: 'Nota',
-    tipo: 'number',
-    min: 0,
-    max: 10,
-    noForm: true,
-    naTabela: true,
-    obrigatorio: true,
-    badge: true,
-  },
-  {
-    nome: 'comentarios',
-    label: 'Comentários',
+    nome: 'descricao',
+    label: 'Descrição',
     tipo: 'textarea',
     noForm: true,
     naTabela: true,
     obrigatorio: true,
   },
-  { nome: 'dataAvaliacao', label: 'Data', tipo: 'datetime', noForm: false, naTabela: true },
+  {
+    nome: 'prioridade',
+    label: 'Prioridade',
+    tipo: 'select',
+    opcoes: ['BAIXA', 'MEDIA', 'ALTA'],
+    noForm: true,
+    naTabela: true,
+    obrigatorio: true,
+    badge: true,
+  },
+  { nome: 'emailUsuario', label: 'Criado por', tipo: 'email', noForm: false, naTabela: true },
+  { nome: 'dataCriacao', label: 'Data', tipo: 'datetime', noForm: false, naTabela: true },
 ]
