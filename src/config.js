@@ -1,7 +1,7 @@
 // =====================================================================
 // ⭐ CONFIGURAÇÃO DO FRONT: o que muda na prova fica AQUI
 // =====================================================================
-// - ROTA ................. caminho da API (igual ao config.ROTA do backend)
+// - ROTA ................. caminho da API (igual ao @RequestMapping do AvaliacaoController)
 // - ROLES_PODE_CADASTRAR . quem vê o formulário (o backend é quem bloqueia de verdade)
 // - CAMPOS ............... campos da entidade: formulário e tabela são gerados daqui
 // =====================================================================
@@ -26,7 +26,7 @@ export const ROLES_CLAIM = `${NAMESPACE}/roles`
 export const ROLES_PODE_CADASTRAR = ['ADMIN']
 
 // ⭐ Botão "Excluir" em cada linha da tabela.
-// Só ligue (true) depois de descomentar a rota DELETE no backend (app/routes.py).
+// Só ligue (true) depois de descomentar a rota DELETE no backend (AvaliacaoController.java).
 export const MOSTRAR_EXCLUIR = false
 export const ROLES_PODE_EXCLUIR = ['ADMIN']
 

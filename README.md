@@ -23,7 +23,7 @@ Quase tudo está em **[src/config.js](src/config.js)**:
 | Campo aparece só na tabela / só no form | `naTabela` / `noForm` |
 | Campo de escolha | `tipo: 'select', opcoes: ['A', 'B']` |
 | Nota com decimal | `step: 0.5` no campo |
-| Botão **Excluir** na tabela | `MOSTRAR_EXCLUIR = true` (e descomentar o DELETE no `app/routes.py` do back) |
+| Botão **Excluir** na tabela | `MOSTRAR_EXCLUIR = true` (e descomentar o DELETE no `AvaliacaoController.java` do back) |
 | Quem vê o botão Excluir | `ROLES_PODE_EXCLUIR` |
 | GET em outro caminho (ex.: `/minhas`) | `listar` em [src/api.js](src/api.js): ``request(token, `${ROTA}/minhas`)`` |
 | Nova chamada (GET por id, PUT) | exemplos no fim de [src/api.js](src/api.js) |
@@ -53,7 +53,7 @@ Exemplo, para adicionar um campo `cargo` de escolha:
 { nome: 'cargo', label: 'Cargo', tipo: 'select', opcoes: ['DEV', 'PO', 'QA'], noForm: true, naTabela: true, obrigatorio: true },
 ```
 
-(e no backend, `cargo: str` em `AvaliacaoBase`, no arquivo `app/models.py`)
+(e no backend, `private String cargo;` na classe `Avaliacao.java`)
 
 ---
 

@@ -12,10 +12,15 @@ async function request(token, caminho, opcoes = {}) {
   })
 
   if (!resp.ok) {
-    let detalhe = resp.statusText
+    let detalhe = resp.statusText || 'erro'
+    // 401: o Spring explica o motivo no header WWW-Authenticate (ex.: "The aud claim is not valid")
+    const motivo401 = resp.headers.get('WWW-Authenticate')?.match(/error_description="([^"]*)"/)?.[1]
+    if (motivo401) detalhe = `Token inválido: ${motivo401}`
+    else if (resp.status === 401) detalhe = 'Token não enviado ou inválido'
     try {
+      // Spring devolve {"status": 400, "message": "nota deve ser de 0 a 10", ...}
       const corpo = await resp.json()
-      detalhe = formatarDetalhe(corpo.detail) || detalhe
+      detalhe = corpo.message || corpo.detail || detalhe
     } catch {
       /* resposta sem JSON */
     }
@@ -23,14 +28,6 @@ async function request(token, caminho, opcoes = {}) {
   }
 
   return resp.status === 204 ? null : resp.json()
-}
-
-// FastAPI devolve erros de validação (422) como lista: [{loc, msg}, ...]
-function formatarDetalhe(detail) {
-  if (Array.isArray(detail)) {
-    return detail.map((d) => `${d.loc?.at(-1) ?? ''}: ${d.msg}`).join(' | ')
-  }
-  return typeof detail === 'string' ? detail : JSON.stringify(detail)
 }
 
 // GET /avaliacoes
